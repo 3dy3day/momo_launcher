@@ -7,7 +7,7 @@ import tkinter.ttk as ttk
 
 def boot():
     global proc
-    command = './momo --video-device ' + video_comb.get() + ' --resolution ' + resolution_comb.get() + \
+    command = 'momo.exe --log-level 1 --video-device \"' + video_box.get() + '\" --resolution ' + resolution_comb.get() + \
         ' sora '\
             ' --signaling-url wss://' + endpoint_box.get() + \
             ' --channel-id ' + channel_box.get() + \
@@ -15,7 +15,7 @@ def boot():
             ' --video-bit-rate ' + bit_comb.get() + \
             ' --audio ' + audio_comb.get() + ' --role sendonly'
     print(command)
-    # proc = subprocess.Popen("exec " + command, shell=True)
+    proc = subprocess.Popen(command, shell=True)
 
 def stop():
     # global proc
@@ -24,10 +24,10 @@ def stop():
     return
 
 def main():
-    global video_comb, resolution_comb, endpoint_box, channel_box, codec_comb, bit_comb, audio_comb
+    global video_box, resolution_comb, endpoint_box, channel_box, codec_comb, bit_comb, audio_comb
     # Main Window
     main_win = tk.Tk()
-    main_win.title("momo launcher v2")
+    main_win.title("momo launcher v3")
     # Main Frame
     main_frm = ttk.Frame(main_win)
     main_frm.grid(column=0, row=0, sticky=tk.NSEW, padx=5, pady=10)
@@ -37,20 +37,26 @@ def main():
     endpoint_label = ttk.Label(main_frm, text="Endpoint")
     endpoint_box = ttk.Entry(main_frm)
     endpoint_box.insert(0, "sora.low-l.com/signaling")
+
     # Widget channel
     channel_label = ttk.Label(main_frm, text="Channel")
     channel_box = ttk.Entry(main_frm)
-    channel_box.insert(0, "test")
+    channel_box.insert(0, "test1")
 
     # Widget video device
     video_label = ttk.Label(main_frm, text="Video Device")
+    video_box = ttk.Entry(main_frm)
+    video_box.insert(0, "AV.io 4K Video")
+    #AV.io 4K Video
+    #OBS
 
-    process = subprocess.run(['ls -a /dev/video*'],stdout=subprocess.PIPE, shell=True)
-    out = process.stdout.decode()
-    if type(out) != "list":
-        out = ["OBS"]
-    video_comb = ttk.Combobox(main_frm, values=out, width=10)
-    video_comb.current(0)
+    #process = subprocess.run(['ls -a /dev/video*'],stdout=subprocess.PIPE, shell=True)
+    #out = process.stdout.decode()
+    #if type(out) != "list":
+        #out = ["OBS"]
+    #video_comb = ttk.Combobox(main_frm, values=out, width=10)
+    #video_comb.current(0)
+
 
     # Widget resolution
     resolution_label = ttk.Label(main_frm, text="Resolution")
@@ -94,7 +100,7 @@ def main():
     channel_box.grid(column=1, row=1, sticky=tk.EW, pady=5)
 
     video_label.grid(column=0, row=2)
-    video_comb.grid(column=1, row=2, pady=5, padx=5, ipadx=5)
+    video_box.grid(column=1, row=2, pady=5, padx=5, ipadx=5)
 
     resolution_label.grid(column=0, row=4)
     resolution_comb.grid(column=1, row=4, pady=5, padx=5, ipadx=5)
