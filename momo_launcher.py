@@ -36,7 +36,7 @@ def main():
     # Widget endpoint
     endpoint_label = ttk.Label(main_frm, text="Endpoint")
     endpoint_box = ttk.Entry(main_frm)
-    endpoint_box.insert(0, "sora.low-l.com/signaling")
+    endpoint_box.insert(0, "YOURURL/signaling")
     # Widget channel
     channel_label = ttk.Label(main_frm, text="Channel")
     channel_box = ttk.Entry(main_frm)
